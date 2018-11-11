@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>Login</title>
+{% endblock %}
+
+{% block content %}
+<nav id="search-bar" class="indigo darken-4">
+	<div class="nav-wrapper">
+		<form>
+			<div class="input-field" id="input-parent">
+				<i id="search-prefix-tag" class="material-icons prefix" title="Hit Enter to Search">search</i>
+				<input id="search" class="dropdown-trigger" title="Hit Enter to Search" data-target='dropdown1' maxlength="255">
+				<i class="material-icons suffix" title="Clear text">close</i>
+			</div>
+		</form>
+	</div>
+</nav>
+<div class="container">
+	<h3 class="indigo-text text-darken-4">Today's Stock Update<i class="material-icons refresh-btn right">refresh</i></h3>
+</div>
+<div class="row simple-row">
+	<div class="col s12 m12 l12 blob-parent first-row">
+		<div class="col s8 m8 l8 push-s2 push-m2 push-l2 blob" id="blob-first">
+			<svg viewBox="0 0 3000 1800" class="inner-blob">
+				<line x1="100" y1="100" x2="100" y2="1700" />
+				<line x1="100" y1="1700" x2="2900" y2="1700" />
+				
+			</svg>
+		</div>
+	</div>
+</div>
+<ul id='dropdown1' class='dropdown-content'></ul>
+{% endblock %}
+
+{% block scripts %}
+<script>
+	var data = `{{ data }}`;
+	data = data.replaceAll('&quot;', '"').replaceAll('-', ' ');
+	$(document).ready(function() {
+		changeDropdown(data);
+		$('input#search').bind('keydown', function(e) {
+			if (e.which === 13) {
+				var query = $("#search").val().replaceAll(' ', '-');
+				window.location.href = 'http://127.0.0.1:8000/' + `search=${query}/`;
+				e.preventDefault();
+			}
+		});
+		$('i.suffix').bind('click', function() {
+			document.querySelector('input#search')['value'] = '';
+			document.querySelector('input#search').focus();
+		});
+		$('#search-prefix-tag').bind('click', function() {
+			document.querySelector('input#search').focus();
+		});
+	});
+</script>
+{% endblock %}

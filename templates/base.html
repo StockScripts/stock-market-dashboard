@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	{% block title %}
+	{% endblock %}
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">	
+	{% block stylesheets %}
+	{% endblock %}
+</head>
+<body>
+	<nav>
+		<div class="nav-wrapper indigo darken-4">
+			<a class="brand-logo" href="/">Stock Market Dashboard</a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+				{% if user.is_authenticated %}
+				<li><a class="disabled waves-effect waves-light btn white indigo-text text-darken-4">{{user.username}}</a></li>
+				<li><a href="/">Home</a></li>
+				<li><a href="/logout/" class="waves-effect waves-light btn red">Logout</a></li>
+				{% else %}
+				<li><a href="/">Home</a></li>
+				<li><a href="/login/">Login</a></li>
+				<li><a href="/signup/">Register</a></li>
+				{% endif %}
+			</ul>
+		</div>
+	</nav>
+
+	{% block content %}
+	{% endblock %}
+	
+	<!-- Scripts -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script src="{% static 'js/app.js' %}"></script>
+	{% block scripts %}
+	{% endblock %}
+</body>
+</html>
