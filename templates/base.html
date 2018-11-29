@@ -18,7 +18,7 @@
 			<a class="brand-logo" href="/">Stock Market Dashboard</a>
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
 				{% if user.is_authenticated %}
-				<li><a class="disabled waves-effect waves-light btn white indigo-text text-darken-4">{{user.username}}</a></li>
+				<li><a href="/profile" class="profile waves-effect waves-light btn white indigo-text text-darken-4">{{user.username}}</a></li>
 				<li><a href="/">Home</a></li>
 				<li><a href="/logout/" class="waves-effect waves-light btn red">Logout</a></li>
 				{% else %}

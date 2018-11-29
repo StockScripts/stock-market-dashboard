@@ -1,3 +1,30 @@
+select {
+	display: initial;
+	border-color: #eeeeee;
+	transition: border-color 0.35s ease;
+}
+
+select#id_refresh_time option {
+	font-size: 1.5em;
+}
+
+select:hover {
+	border-color: black;
+	cursor: pointer;
+}
+
+label {
+	margin-right: 2vw;
+	color: #212121;
+	font-size: 1.5em;
+}
+
+.padded-rounded-section {
+	background-color: white;
+	padding: 15px;
+	border-radius: 10px;
+}
+
 .nav-wrapper > form {
 	position: absolute !important;
 	left: 25vw;
@@ -44,10 +71,11 @@ nav#search-bar {
 	cursor: pointer;
 }
 
-.btn.disabled {
+.btn.profile {
 	background-color: white !important;
 	color: #1a237e !important;
 	text-transform: none;
+	cursor: pointer;
 }
 
 #dropdown1 {
@@ -99,6 +127,76 @@ body {
 	line-height: 1.5;
 	cursor: pointer;
 	color: #0d47a1;
+}
+
+.person-icon {
+	font-size: 15vh;
+}
+
+.container h1 {
+	margin-top: 0;
+}
+
+.card {
+	height: 40vh;
+}
+
+table, td, th {
+	border: 2px solid black;
+}
+
+text {
+	font-size: 1.3em;
+}
+
+td, th {
+	text-align: center;
+}
+
+rect {
+	transition: opacity 0.35s ease;
+}
+
+rect:hover {
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+.new-icon {
+	font-size: 1em;
+}
+
+.card-action a {
+	color: #1a237e !important;
+}
+
+.loader-wrapper {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.loader {
+	border: 3px solid #f3f3f3;
+	border-radius: 50%;
+	border-top: 4px solid #1a237e;
+	width: 50px;
+	height: 50px;
+	-webkit-animation: spin 0.7s linear infinite; /* Safari */
+	animation: spin 0.7s linear infinite;
+	text-align: center;
+}
+
+@-webkit-keyframes spin {
+	0% { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
 }
 
 /* SVG styling */

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-<title>Login</title>
+<title>Stock Market Dashboard</title>
 {% endblock %}
 
 {% block content %}
@@ -10,22 +10,50 @@
 		<form>
 			<div class="input-field" id="input-parent">
 				<i id="search-prefix-tag" class="material-icons prefix" title="Hit Enter to Search">search</i>
-				<input id="search" class="dropdown-trigger" title="Hit Enter to Search" data-target='dropdown1' maxlength="255">
+				<input id="search" class="dropdown-trigger" placeholder="Stock News Updates" title="Hit Enter to Search" data-target='dropdown1' maxlength="255">
 				<i class="material-icons suffix" title="Clear text">close</i>
 			</div>
 		</form>
 	</div>
 </nav>
 <div class="container">
-	<h3 class="indigo-text text-darken-4">Today's Stock Update<i class="material-icons refresh-btn right">refresh</i></h3>
+	<h3 class="indigo-text text-darken-4">Stock Update<i id="refresh" class="material-icons refresh-btn right">refresh</i></h3>
+</div>
+<div class="container">
+	<form action="/" method="post">
+		{% csrf_token %}
+		{{ form }}
+		<br><br>
+		<input class="btn indigo darken-4" type="submit" value="Filter">
+	</form>
+</div>
+<div class="row">
+	<div class="col s4 m4 l4 push-s4 push-m4 push-l4">
+		<div id="graph-value">
+			<table>
+				<tr>
+					<th>Stock (Y)</th>
+					<th>Timestamp (X)</th>
+				</tr>
+				<tr>
+					<td id="x-val"><i>hover over graph</i></td>
+					<td id="y-val"><i>hover over graph</i></td>
+				</tr>
+			</table>
+		</div>
+	</div>
 </div>
 <div class="row simple-row">
 	<div class="col s12 m12 l12 blob-parent first-row">
 		<div class="col s8 m8 l8 push-s2 push-m2 push-l2 blob" id="blob-first">
-			<svg viewBox="0 0 3000 1800" class="inner-blob">
-				<line x1="100" y1="100" x2="100" y2="1700" />
-				<line x1="100" y1="1700" x2="2900" y2="1700" />
-				
+			<svg viewBox="0 0 3000 1800" class="inner-blob" id="stocksvg">
+				<line x1="100" y1="50" x2="100" y2="1700" />
+				<line x1="100" y1="50" x2="80" y2="70" />
+				<line x1="100" y1="50" x2="120" y2="70" />
+				<line x1="100" y1="1700" x2="2950" y2="1700" />
+				<line x1="2950" y1="1700" x2="2930" y2="1680" />
+				<line x1="2950" y1="1700" x2="2930" y2="1720" />
+				<text x="70" y="1730">O</text>
 			</svg>
 		</div>
 	</div>
@@ -34,11 +62,18 @@
 {% endblock %}
 
 {% block scripts %}
+<script src="https://d3js.org/d3.v5.min.js"></script>
 <script>
+	var stats = `{{ stats }}`;
+	stats = stats.replaceAll('&quot;', '"').replaceAll('u"', '"');
 	var data = `{{ data }}`;
+	var option = `{{ val }}`;
 	data = data.replaceAll('&quot;', '"').replaceAll('-', ' ');
+	var series = `{{ series }}`;
+	var attribute = `{{ attr }}`;
 	$(document).ready(function() {
 		changeDropdown(data);
+		createSVG(stats, attribute);
 		$('input#search').bind('keydown', function(e) {
 			if (e.which === 13) {
 				var query = $("#search").val().replaceAll(' ', '-');
@@ -53,6 +88,18 @@
 		$('#search-prefix-tag').bind('click', function() {
 			document.querySelector('input#search').focus();
 		});
+		var el = document.querySelector('i#refresh');
+		el.onclick = function() {
+			document.querySelector('body').innerHTML = `
+				<div class="loader-wrapper">
+					<div class="loader"></div>
+				</div>
+			`;
+			window.location.assign(window.location.href + 'refresh=' + series);
+		};
+		setTimeout(function() {
+			$('i#refresh').click();
+		}, option);
 	});
 </script>
 {% endblock %}

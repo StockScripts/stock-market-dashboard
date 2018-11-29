@@ -5,6 +5,24 @@
 {% endblock %}
 
 {% block content %}
-<h1>Search View</h1>
-<h2>Query: {{ query }}</h2>
+<div class="container">
+	<h2>News result for {{ query }}</h2>
+</div>
+<div class="row">
+	{% for article in news %}
+		<div class="col s12 m6">
+			<div class="card">
+				<div class="card-content">
+					<span class="card-title">{{ article.title }}</span>
+					<span class="card-subtitle-1">By {{ article.author }} at {{ article.publishedAt }}</span>
+					<h6>{{ article.description }}</h6>
+					<p>{{ article.content }}</p>
+				</div>
+				<div class="card-action">
+					<a target="_blank" href="{{ article.url }}"><i class="material-icons new-icon">open_in_new</i>&nbsp;&nbsp;URL</a>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+</div>
 {% endblock %}

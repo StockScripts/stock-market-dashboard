@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>{{ user.username }} | Profile</title>
+{% endblock %}
+
+{% block content %}
+<div class="container center">
+	<i class="material-icons person-icon">account_circle</i>
+	<h1>{{ user.username }}</h1>
+</div>
+<div class="container padded-rounded-section">
+	<form action="/profile" method="post">
+		{% csrf_token %}
+		{{ form }}
+		<br><br>
+		<input class="btn indigo darken-4" type="submit" value="Save">
+	</form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+	var option = `{{ val }}`;
+	option = parseInt(option);
+	console.log(option);
+	$(document).ready(function() {
+		$('select#id_refresh_time').val(option);
+	});
+</script>
+{% endblock %}
